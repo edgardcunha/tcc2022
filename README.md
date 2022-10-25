@@ -11,5 +11,12 @@ Como prototipar e implementar um testbed utilizando white boxes e RARE/freeRtr?
 ## Prerequisites
 * TMUX
 * WGET
+* default-jre-headless
+
+## Topology
+
+## Launch the Topology
+
+## Experiment
 
 ## References
