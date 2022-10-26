@@ -1,0 +1,53 @@
+hostname dtn1
+no buggy
+!
+vrf definition v1
+ rd 1:1
+ exit
+!
+interface template1
+ no description
+ lldp enable
+ vrf forwarding v1
+ ipv4 address dynamic dynamic
+ ipv6 address dynamic dynamic
+ mpls enable
+ shutdown
+ no log-link-change
+ exit
+!
+interface loopback0
+ description lo for dtn1
+ vrf forwarding v1
+ ipv4 address 20.20.20.5 /32
+ ipv6 address 2020::5 /128
+ template template1
+ no shutdown
+ exit
+!
+interface ethernet1
+ description dtn1 -> r1
+ vrf forwarding v1
+ ipv4 address 5.5.5.2 /30
+ ipv6 address 5555::2 /64
+ template template1
+ no shutdown
+ no log-link-change
+ exit
+!
+ipv4 route v1 0.0.0.0 0.0.0.0 7.7.7.2
+!
+ipv6 route v1 :: :: 7777::2
+!
+server telnet tel
+ security protocol telnet
+ exec timeout 10000000
+ exec colorize prompt
+ exec logging
+ no exec authorization
+ no login authentication
+ login logging
+ vrf v1
+ exit
+!
+end
