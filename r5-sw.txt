@@ -1,0 +1,121 @@
+hostname r5
+no buggy
+!
+vrf definition v1
+ rd 1:1
+ exit
+!
+router ospf4 1
+ vrf v1
+ router-id 10.5.5.5
+ traffeng-id 0.0.0.0
+ segrout 10
+ area 0 enable
+ area 0 segrout
+ redistribute connected
+ exit
+!
+router ospf6 1
+ vrf v1
+ router-id 10.6.5.5
+ traffeng-id ::
+ segrout 10
+ area 0 enable
+ area 0 segrout
+ redistribute connected
+ exit
+!
+interface template1
+ description template interface r5
+ lldp enable
+ vrf forwarding v1
+ ipv4 address dynamic dynamic
+ ipv6 address dynamic dynamic
+ mpls enable
+ polka enable 5 65536 10
+ router ospf4 1 enable
+ router ospf4 1 area 0
+ router ospf4 1 segrout index 5
+ router ospf4 1 segrout node
+ router ospf6 1 enable
+ router ospf6 1 area 0
+ router ospf6 1 segrout index 5
+ router ospf6 1 segrout node
+ shutdown
+ no log-link-change
+ exit
+!
+interface loopback0
+ description lo r5
+ vrf forwarding v1
+ ipv4 address 20.20.20.5 /32
+ ipv6 address 2020::5 /128
+ template template1
+ no shutdown
+ exit
+!
+interface ethernet1
+ description r5 -> dtn2
+ vrf forwarding v1
+ ipv4 address 7.7.7.2 /30
+ ipv6 address 7777::2 /64
+ template template1
+ no shutdown
+ exit
+!
+interface ethernet2
+ description r5 -> r4
+ vrf forwarding v1
+ ipv4 address 4.4.4.2 /30
+ ipv6 address 4444::2 /64
+ template template1
+ no shutdown
+ exit
+!
+interface ethernet3
+ description r5 -> r3
+ vrf forwarding v1
+ ipv4 address 5.5.5.1 /30
+ ipv6 address 5555::1 /64
+ template template1
+ no shutdown
+ exit
+!
+interface tunnel1
+ description Shortest Path PolKA Tunnel IPv4 from r5 -> r1
+ tunnel vrf v1
+ tunnel source loopback0
+ tunnel destination 20.20.20.1
+ tunnel domain-name 20.20.20.3
+ tunnel mode polka
+ vrf forwarding v1
+ ipv4 address 30.30.30.2 /30
+ no shutdown
+ no log-link-change
+ exit
+!
+interface tunnel2
+ description Longest Path PolKA Tunnel IPv4 from r5 -> r1
+ tunnel vrf v1
+ tunnel source loopback0
+ tunnel destination 20.20.20.1
+ tunnel domain-name 20.20.20.4 20.20.20.2
+ tunnel mode polka
+ vrf forwarding v1
+ ipv4 address 40.40.40.2 /30
+ no shutdown
+ no log-link-change
+ exit
+!
+server telnet tel
+ security protocol telnet
+ exec timeout 10000000
+ exec logging
+ exec colorize prompt
+ no exec authorization
+ no login authentication
+ login logging
+ vrf v1
+ exit
+!
+end
