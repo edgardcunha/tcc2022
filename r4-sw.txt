@@ -8,6 +8,7 @@ vrf definition v1
 router ospf4 1
  vrf v1
  router-id 10.4.4.4
+ traffeng-id 0.0.0.0
  segrout 10
  area 0 enable
  area 0 segrout
@@ -17,6 +18,7 @@ router ospf4 1
 router ospf6 1
  vrf v1
  router-id 10.6.4.4
+ traffeng-id ::
  segrout 10
  area 0 enable
  area 0 segrout
@@ -24,7 +26,7 @@ router ospf6 1
  exit
 !
 interface template1
- no description
+ description template interface r4
  lldp enable
  vrf forwarding v1
  ipv4 address dynamic dynamic
@@ -52,29 +54,20 @@ interface loopback0
  no shutdown
  exit
 !
-interface ethernet1
- description r4 -> dtn2
- vrf forwarding v1
- ipv4 address 6.6.6.1 /30
- ipv6 address 6666::1 /64
- template template1
- no shutdown
- exit
-!
 interface ethernet2
- description r4 -> r3
- vrf forwarding v1
- ipv4 address 3.3.3.2 /30
- ipv6 address 3333::2 /64
- template template1
- no shutdown
- exit
-!
-interface ethernet3
- description r4 -> r1
+ description r4 -> r5
  vrf forwarding v1
  ipv4 address 4.4.4.1 /30
  ipv6 address 4444::1 /64
+ template template1
+ no shutdown
+ exit
+!
+interface ethernet4
+ description r4 -> r2
+ vrf forwarding v1
+ ipv4 address 2.2.2.2 /30
+ ipv6 address 2222::2 /64
  template template1
  no shutdown
  exit
