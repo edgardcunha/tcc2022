@@ -1,6 +1,5 @@
-hostname R2
+hostname r2
 no buggy
-!
 !
 vrf definition v1
  rd 1:1
@@ -9,6 +8,7 @@ vrf definition v1
 router ospf4 1
  vrf v1
  router-id 10.2.2.2
+ traffeng-id 0.0.0.0
  segrout 10
  area 0 enable
  area 0 segrout
@@ -18,6 +18,7 @@ router ospf4 1
 router ospf6 1
  vrf v1
  router-id 10.6.2.2
+ traffeng-id ::
  segrout 10
  area 0 enable
  area 0 segrout
@@ -25,7 +26,7 @@ router ospf6 1
  exit
 !
 interface template1
- no description
+ description template interface r2
  lldp enable
  vrf forwarding v1
  ipv4 address dynamic dynamic
@@ -53,7 +54,7 @@ interface loopback0
  no shutdown
  exit
 !
-interface ethernet1
+interface ethernet3
  description r2 -> r1
  vrf forwarding v1
  ipv4 address 1.1.1.2 /30
@@ -62,8 +63,8 @@ interface ethernet1
  no shutdown
  exit
 !
-interface ethernet2
- description r2 -> r3
+interface ethernet4
+ description r2 -> r4
  vrf forwarding v1
  ipv4 address 2.2.2.1 /30
  ipv6 address 2222::1 /64
