@@ -11,6 +11,8 @@ tmux send 'java -jar '$RTR' routersc '$HWSW'r3-hw.txt '$HWSW'r3-sw.txt' ENTER;
 tmux split-window -h -t 2 -p 50
 tmux send 'java -jar '$RTR' routersc '$HWSW'r4-hw.txt '$HWSW'r4-sw.txt' ENTER;
 tmux split-window -v -t 0 -p 50
+tmux send 'java -jar '$RTR' routersc '$HWSW'r5-hw.txt '$HWSW'r5-sw.txt' ENTER;
+tmux split-window -v -t 0 -p 50
 tmux send 'java -jar '$RTR' routersc '$HWSW'dtn1-hw.txt '$HWSW'dtn1-sw.txt' ENTER;
 tmux split-window -v -t 2 -p 50
 tmux send 'java -jar '$RTR' routersc '$HWSW'dtn2-hw.txt '$HWSW'dtn2-sw.txt' ENTER;
