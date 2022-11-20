@@ -1,8 +1,8 @@
-# latinoware2022
-Experiment with emulated RARE/freeRtr and PolKA.
+# TCC2022
+PolKA protocol experiment using emulated RARE/freeRtr.
 
-## Presentation Title
-Como prototipar e implementar um testbed utilizando white boxes e RARE/freeRtr?
+## Title
+How to prototype and implement a testbed using whiteboxes and RARE/freeRtr?
 
 ## Requirements
 * Basic Linux/Unix knowledge
@@ -14,8 +14,10 @@ Como prototipar e implementar um testbed utilizando white boxes e RARE/freeRtr?
 * default-jre-headless
 
 ## Topology
+![Topology](resources/topology.svg)
 
 ## Launch the Topology
+
 
 ## Experiment
 
