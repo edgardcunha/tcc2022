@@ -14,7 +14,7 @@ How to prototype and implement a testbed using whiteboxes and RARE/freeRtr?
 * default-jre-headless
 
 ## Topology
-![Topology](topology.svg)
+![Topology](resources/topology.svg)
 
 ## Launch the Topology
 
