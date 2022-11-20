@@ -6,7 +6,7 @@ vrf definition v1
  exit
 !
 interface template1
- no description
+ description template interface dtn2
  lldp enable
  vrf forwarding v1
  ipv4 address dynamic dynamic
@@ -19,25 +19,25 @@ interface template1
 interface loopback0
  no description
  vrf forwarding v1
- ipv4 address 20.20.20.6 /32
- ipv6 address 2020::6 /128
+ ipv4 address 20.20.20.7 /32
+ ipv6 address 2020::7 /128
  template template1
  no shutdown
  exit
 !
 interface ethernet1
- description dtn2 -> r4
+ description dtn2 -> r5
  vrf forwarding v1
- ipv4 address 6.6.6.2 /30
- ipv6 address 6666::2 /64
+ ipv4 address 7.7.7.1 /30
+ ipv6 address 7777::1 /64
  template template1
  no shutdown
  no log-link-change
  exit
 !
-!ipv4 route v1 0.0.0.0 0.0.0.0 7.7.7.2
+ipv4 route v1 0.0.0.0 0.0.0.0 7.7.7.2
 !
-!ipv6 route v1 :: :: 7777::2
+ipv6 route v1 :: :: 7777::2
 !
 server telnet tel
  security protocol telnet
